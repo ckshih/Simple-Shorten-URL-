@@ -19,6 +19,7 @@ Two way to make a long url to a short new url:
     $ curl -X POST -d "url=http://www.google.com" http://172.104.106.119/api.php
   ```
   - Replace google url with your URL after **url=**.
+  - You will get JSON type format {"status":[0|1], "msg":"[OK | Fail]", "shortURL":"[shorten url]"}.
 
 # 2.Setup
 ### Environment:
