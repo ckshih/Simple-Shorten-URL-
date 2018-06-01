@@ -1,0 +1,7 @@
+Options +FollowSymLinks -Indexes -MultiViews  
+RewriteEngine on  
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ redirectURL.php?shortURL=$1 [L,QSA]
+
