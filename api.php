@@ -33,5 +33,5 @@
 	mysql_close($connect);
 
 	header('Content-type: application/json');
-	echo json_encode($json); 
+	echo json_encode($json, JSON_UNESCAPED_SLASHES); 
 ?>
