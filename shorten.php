@@ -11,7 +11,7 @@
 	while(true)
 	{
 		$shortUrl = shortenURL($url);
-		$sql = "SELECT * FROM '$tbName' WHERE shortURL = '$shortUrl'";
+		$sql = "SELECT * FROM `$tbName` WHERE shortURL = '$shortUrl'";
 		$result = mysql_query($sql, $connect);
 		if(mysql_num_rows($result) == NULL)
 			break;
