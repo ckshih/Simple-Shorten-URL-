@@ -5,13 +5,12 @@ Two way to make a long url to a short new url:
   - UI website
   - Restful POST API
 
-### a. UI website
-
+### A. UI website
   - Website URL : [here].
   - Fill the long url on text box, and then click **Short it!**.
   - You will get the short url.
 
-### b. Restful POST API
+### B. Restful POST API
   - API URL : http://172.104.106.119/api.php
   - Use curl way to get shorten url.
   - Example:
@@ -21,12 +20,18 @@ Two way to make a long url to a short new url:
   - Replace google url with your URL after **url=**.
   - You will get JSON type format {"status":[0|1], "msg":"[OK | Fail]", "shortURL":"[shorten url]"}.
 
+### C. Check If URL Can Be Accessed Or Not
+  - Page : CheckStatus.php
+  - Use curl built in php to check http code. It will detect the url with 4xx http code and non-exist url.
+
 # 2.Setup
+
 ### Environment:
   - FreeBSD 11.1-RELEASE(recommend) or Other Linux
   - Apache24
   - MySQL 5.6
   - PHP 5.6
+
 ### Apache Installation
 ```sh
     # pkg install apache24 
@@ -55,15 +60,17 @@ Final start up MySQL
 ```sh
     # mysql_secure_installation 
 ```
+
 ### PHP Installation
 ```sh
-    # pkg install php56 php56-extensions php56-mysql php56-mysql php56-mysqli 
+    # pkg install php56 php56-extensions php56-mysql php56-mysql php56-mysqli php56-PDO php56-pdo_mysql
 ```
 After installation, copy a setting file php.ini to specific place
 ```sh
     # cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini
     # rehash
 ```
+
 ### Other Setting
 We have to edit some setting in apache setting file, so 
 ```sh
@@ -102,6 +109,7 @@ Restart Apache server:
 ```sh
      # service apache24 restart 
 ```
+
 ### Create a New Database
 Create a database named **shorten** and a table named **shortentable** with only three colmun:
 
@@ -115,8 +123,10 @@ Create a database named **shorten** and a table named **shortentable** with only
 There are six php files and one.htaccess file and move them to website root, usually be /usr/local/www/apache24/data
 
 ### Set Database Account and Password
-Change ***$userName*** and  ***$password*** to your account and password in **sqlconfig.php** file.
+Change ***$userName*** and  ***$password*** to your account and password in **sqliconfig.php** file.
+
 # 3. All Done!
+
 I think it will work fine after above! Enjoy it!
 
 

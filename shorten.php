@@ -1,5 +1,5 @@
 <?php
-	include_once('sqlconfig.php');
+	include_once('sqliconfig.php');
 	include_once('shortenURL.php');
 	
 	$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
@@ -7,21 +7,34 @@
 
 	
 	// Get original url from POST
-	$url = mysql_real_escape_string($_POST['url']); 
+	$url = $_POST['url'];
 	while(true)
 	{
 		$shortUrl = shortenURL($url);
-		$sql = "SELECT * FROM `$tbName` WHERE shortURL = '$shortUrl'";
-		$result = mysql_query($sql, $connect);
-		if(mysql_num_rows($result) == NULL)
+		$sql = "SELECT `ID` FROM $tbName WHERE shortURL = ?";
+		$stmt = $mysqli->prepare($sql);
+		$stmt->bind_param('s',$url);
+		$stmt->execute();
+		$stmt->bind_result($id);
+		$stmt->fetch();
+
+		if($id == NULL)
 			break;
+		$stmt->close();
 	}
-	$sql = "INSERT INTO `$tbName` (`ID`, `oriURL`, `shortURL`) VALUES (NULL,'$url','$shortUrl')";
-#	echo $sql;
-	mysql_query($sql, $connect);
+	$sql = "INSERT INTO `$tbName` (`ID`, `oriURL`, `shortURL`) VALUES (NULL, ?, ?)";
 	$newURL = $hostname . $shortUrl;
+	
+	//$result = mysql_query($sql, $connect);
+	$stmt = $mysqli->prepare($sql);
+	$stmt->bind_param('ss', $url, $shortUrl);
+	$stmt->execute();
+	$newURL = $hostname . $shortUrl;
+
 	echo "Shortened url is : "; 
 	echo '<a href="' . $newURL . '">' . $newURL . '</a><br>';	
-	mysql_close($connect);
+	
+	$stmt->close();
+	$mysqli->close();
 	
 ?>

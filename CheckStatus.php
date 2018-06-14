@@ -1,18 +1,20 @@
 <?php
-    include_once('sqlconfig.php');
+    include_once('sqliconfig.php');
 
-
-    $sql = "SELECT `oriURL` FROM `$tbName` WHERE 1";
-    $result = mysql_query($sql, $connect);
     $sizeOfUrlArr = 0;
-
     $urlArr = array();
     $response_map = array();
 
+    $sql = "SELECT `oriURL` FROM $tbName WHERE 1";
+	$stmt = $mysqli->prepare($sql);
+	$stmt->execute();
+	$stmt->bind_result($ori);
+
     // Get Url from db and store back to array
-    while(($row = mysql_fetch_row($result)) != NULL)
+    //while(($row = mysql_fetch_row($result)) != NULL)
+    while($stmt->fetch())
     {
-        $url = $row[0];
+        $url = $ori;
         
         if(strpos($url, "://")== NULL)
             $url = "http://" . $url;    
@@ -58,7 +60,9 @@
         curl_multi_remove_handle($multiHandler, $response);
 
     }
-
+    
+    $stmt->close();
+	$mysqli->close();
     curl_multi_close($multiHandler);
     
 ?>
