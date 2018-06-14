@@ -110,7 +110,6 @@ Create a database named **shorten** and a table named **shortentable** with only
 | ID | int(11) | AUTO_INCREMENT, PRIMARY |
 | oriURL | varchar(2000) ||
 | shortURL | varchar(6)  ||
-| ------ | ------ | ------ |
 
 ### Move All file to Website Root
 There are six php files and one.htaccess file and move them to website root, usually be /usr/local/www/apache24/data
