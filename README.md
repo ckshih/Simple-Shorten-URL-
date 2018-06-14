@@ -23,6 +23,8 @@ Two way to make a long url to a short new url:
 ### C. Check If URL Can Be Accessed Or Not
   - Page : CheckStatus.php
   - Use curl built in php to check http code. It will detect the url with 4xx http code and non-exist url.
+  - It will take a long long and long time for checking.
+  - TODO : Down the waiting time.
 
 # 2.Setup
 
