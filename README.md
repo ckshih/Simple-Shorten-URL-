@@ -104,6 +104,7 @@ Restart Apache server:
 ```
 ### Create a New Database
 Create a database named **shorten** and a table named **shortentable** with only three colmun:
+
 | Name | Type | other |
 | ------ | ------ | ------ |
 | ID | int(11) | AUTO_INCREMENT, PRIMARY |
